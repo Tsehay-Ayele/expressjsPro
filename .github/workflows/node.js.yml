@@ -52,11 +52,11 @@ jobs:
           apt-get install --yes postgresql-client
 
       # queries database with postgres client
-      - name: Query database
-        run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
-        env:
+      #- name: Query database
+        #run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
+        #env:
           # postgress password is required; alternatively, you can run:
           # `PGPASSWORD=postgres_password psql ...`
-          PGPASSWORD: postgres_password
+          #PGPASSWORD: postgres_password
 
 
