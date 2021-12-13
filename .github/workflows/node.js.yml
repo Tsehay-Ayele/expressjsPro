@@ -18,33 +18,28 @@ jobs:
           echo test, and deploy your project.
   postgresql-job:
     needs: node-job
+    # You must use a Linux environment when using service containers or container jobs
     runs-on: ubuntu-latest
-    # Docker Hub image that `container-job` executes in
-    container: node:10.18-jessie
-    # Service containers to run with `container-job`
+
+    # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres:latest
+        image: postgres
         # Provide the password for postgres
         env:
-          # optional (defaults to `postgres`)
-          POSTGRES_DB: postgres_db
-          # required
           POSTGRES_PASSWORD: postgres
-          # optional (defaults to `5432`)
-          POSTGRES_PORT: 5432
-          # optional (defaults to `postgres`)
-          POSTGRES_USER: postgres_user
-        ports:
-          - 5432:5432 
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
     steps:
       # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
