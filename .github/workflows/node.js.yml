@@ -3,7 +3,6 @@ name: s3-depl
 on:
   push:
     branches:
-      - master
 
 jobs:
   node-build:
